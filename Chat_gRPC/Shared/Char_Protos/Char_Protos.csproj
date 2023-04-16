@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Grpc" Version="2.46.6" />
+		<PackageReference Include="Grpc.AspNetCore" Version="2.52.0" />
+		<PackageReference Include="Grpc.Core.Api" Version="2.52.0" />
+		<PackageReference Include="Grpc.Net.Client" Version="2.52.0" />
+		<PackageReference Include="Grpc.Net.Client.Web" Version="2.52.0" />
+		<PackageReference Include="Grpc.Tools" Version="2.53.0">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+
+	<!--if we don't use it in the protobuf, then it generates both the client and server parts-->
+	<!--GrpcServices="Server"-->
+	<ItemGroup>
+		<Protobuf Include="greet.proto" />
+	</ItemGroup>
+
+</Project>

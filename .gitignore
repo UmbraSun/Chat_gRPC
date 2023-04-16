@@ -7,6 +7,14 @@
 *.sln.docstates
 *.v2
 *.v6.1
+*.woff
+*.ttf
+*.svg
+*.oft
+*.eot
+*.otf
+*.min.css
+*.min.css.map
 
 # Build results
 
