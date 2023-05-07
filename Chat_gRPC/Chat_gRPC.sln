@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chat_Mobile.iOS", "Frontend
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chat_Mobile", "Frontend\Mobile\Chat_Mobile\Chat_Mobile\Chat_Mobile.csproj", "{FECB3931-06EB-4893-B8BB-6B11A66C3841}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chat_Database", "Backend\Chat_Database\Chat_Database.csproj", "{EAFA8625-0BFD-4D80-9FC8-B5FBEEBF668B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -99,6 +101,18 @@ Global
 		{FECB3931-06EB-4893-B8BB-6B11A66C3841}.Release|iPhone.Build.0 = Release|Any CPU
 		{FECB3931-06EB-4893-B8BB-6B11A66C3841}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{FECB3931-06EB-4893-B8BB-6B11A66C3841}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{EAFA8625-0BFD-4D80-9FC8-B5FBEEBF668B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EAFA8625-0BFD-4D80-9FC8-B5FBEEBF668B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EAFA8625-0BFD-4D80-9FC8-B5FBEEBF668B}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{EAFA8625-0BFD-4D80-9FC8-B5FBEEBF668B}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{EAFA8625-0BFD-4D80-9FC8-B5FBEEBF668B}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{EAFA8625-0BFD-4D80-9FC8-B5FBEEBF668B}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{EAFA8625-0BFD-4D80-9FC8-B5FBEEBF668B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EAFA8625-0BFD-4D80-9FC8-B5FBEEBF668B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EAFA8625-0BFD-4D80-9FC8-B5FBEEBF668B}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{EAFA8625-0BFD-4D80-9FC8-B5FBEEBF668B}.Release|iPhone.Build.0 = Release|Any CPU
+		{EAFA8625-0BFD-4D80-9FC8-B5FBEEBF668B}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{EAFA8625-0BFD-4D80-9FC8-B5FBEEBF668B}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -111,6 +125,7 @@ Global
 		{9B51E396-6164-4B9D-8397-B3472FFEFFE4} = {BCD5CD69-538A-4FA8-B321-B8640A65C2BC}
 		{E3ADA6C6-5977-4FA9-8C63-4D512ABE6F94} = {BCD5CD69-538A-4FA8-B321-B8640A65C2BC}
 		{FECB3931-06EB-4893-B8BB-6B11A66C3841} = {BCD5CD69-538A-4FA8-B321-B8640A65C2BC}
+		{EAFA8625-0BFD-4D80-9FC8-B5FBEEBF668B} = {2964C16E-10DE-42CA-ABC2-C4CB3DA89771}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6CCB24C0-3319-4BFD-A67D-1197834E59AC}

@@ -23,7 +23,6 @@ var app = builder.Build();
 app.UseStaticFiles();
 
 // Configure the HTTP request pipeline.
-app.MapGrpcService<GreeterService>().EnableGrpcWeb();
 app.MapGrpcService<ChatRoomService>().EnableGrpcWeb();
 app.MapFallbackToFile("index.html");
 
