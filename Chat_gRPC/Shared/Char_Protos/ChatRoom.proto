@@ -5,9 +5,9 @@ option csharp_namespace = "Chat_Protos";
 package chatroom;
 
 service ChatRoom{
-	// rpc for chat
+
 	rpc JoinChat (ChatRequest) returns (stream ChatMessage);
-	rpc Send (ChatMessage) returns (ChatRequest);
+	rpc Send(ChatMessage) returns (ChatRequest);
 }
 
 message ChatRequest{

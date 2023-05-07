@@ -2,58 +2,82 @@
 using Chat_Database.Models;
 using Chat_Protos;
 using Grpc.Core;
+using Microsoft.AspNetCore.Identity;
 
 namespace Chat_gRPC_back.Services
 {
     public class ChatRoomService : ChatRoom.ChatRoomBase
     {
-        private ChatRoomState _state;
-        private List<IServerStreamWriter<ChatMessage>> _listeners = new List<IServerStreamWriter<ChatMessage>>();
+        private readonly UserManager<ChatUser> _userManager;
+        private readonly ChatApp _chatApp;
+        private readonly ILogger<ChatRoomService> _logger;
+        private IServerStreamWriter<ChatMessage> _responseStream = null!;
 
-        public ChatRoomService(ChatRoomState state)
+
+        public ChatRoomService(UserManager<ChatUser> userManager,
+            //ChatApp chatApp,
+            ILogger<ChatRoomService> logger)
         {
-            _state = state;
-            _state.MessageSended += ChatRoomService_MessageSended;
+            _userManager = userManager;
+            //_chatApp = chatApp;
+            _logger = logger;
         }
 
-        public override async Task JoinChat(ChatRequest request, IServerStreamWriter<ChatMessage> responseStream, ServerCallContext context)
+        public override async Task JoinChat(ChatRequest request,
+            IServerStreamWriter<ChatMessage> responseStream,
+            ServerCallContext context)
         {
-            foreach(var chatMessage in _state.GetMessages())
+            var user = await _userManager.GetUserAsync(context.GetHttpContext().User);
+
+            var session = _chatApp.JoinUser(user);
+
+            _responseStream = responseStream;
+
+            session.NewMessageSended += SessionOnNewMessageSended;
+
+            session.Init();
+
+            try
             {
-                await responseStream.WriteAsync(new ChatMessage { Message = chatMessage.ChatVal });
+                await Task.Delay(int.MaxValue, context.CancellationToken);
             }
-
-            _listeners.Add(responseStream);
-
-            while (!context.CancellationToken.IsCancellationRequested)
+            catch (TaskCanceledException e)
             {
-                await Task.Delay(100);
+                _logger.Log(LogLevel.Information, e, "ChatRoomService.JoinChat.Cancelled");
             }
-
-            _listeners.Remove(responseStream);
-        }
-
-        private async void ChatRoomService_MessageSended(string message)
-        {
-            foreach(var streamWriter in _listeners)
+            catch (Exception e)
             {
-                await streamWriter.WriteAsync(new ChatMessage
-                {
-                    Message = message
-                });
+                _logger.Log(LogLevel.Error, e, "ChatRoomService.JoinChat");
+            }
+            finally
+            {
+                session.NewMessageSended -= SessionOnNewMessageSended;
+
+                session.Dispose();
+                _responseStream = null!;
             }
         }
 
         public override async Task<ChatRequest> Send(ChatMessage request, ServerCallContext context)
         {
-            var message = new Message
+            var user = await _userManager.GetUserAsync(context.GetHttpContext().User);
+
+            var chatMessage = new DomainModels.ChatMessage
             {
-                ChatVal = request.Message
+                Message = request.Message,
+                User = user
             };
 
-            await _state.AddMessageAsync(message);
+            await _chatApp.SendAsync(user, chatMessage);
 
             return new ChatRequest();
+        }
+
+
+
+        private async void SessionOnNewMessageSended(DomainModels.ChatMessage message)
+        {
+            await _responseStream.WriteAsync(new ChatMessage { Message = message.Message });
         }
     }
 }
